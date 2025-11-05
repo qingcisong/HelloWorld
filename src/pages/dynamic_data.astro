@@ -1,0 +1,122 @@
+---
+import "../styles/global.css";
+import { Grip, Menu, Sticker } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import Card from '../components/Card.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+
+
+<!-- Top red row -->
+<div class="flex bg-red-500 items-center py-1 px-4">
+    <div class="text-black">IDEA LAB</div>
+   
+    <div class="flex flex-row border border-red-500 gap-4 ml-auto">
+      <div class="text-black ">About us</div>
+      <div class="text-black ">Services</div>
+      <div class="text-black ">Portfolio</div>
+      <div class="text-black ">Blog</div>
+    </div>
+  </div>
+
+  
+  <!-- Pink centered row -->
+  <div class="flex justify-center bg-pink-300 ">
+    <div class="flex items-center justify-center border border-pink-300 bg-pink-300 m-0">
+      <div class="text-black">HOME/BLOG</div>
+    </div>
+  </div>
+  
+  <!-- Pink centered row with title -->
+  <div class="flex justify-center bg-pink-300 ">
+    <div class="border border-pink-300">
+      <div class="text-black text-[1.8rem]">IDEAS THAT INSPIRE</div>
+    </div>
+  </div>
+  
+  <!-- Purple bar -->
+  <div class="flex justify-between items-center bg-purple-500 px-5 m-0 h-12">
+    <div class="flex border border-purple-500 p-2 m-0 space-x-2 items-center">
+      <div class="h-8 w-8 overflow-visible">
+        <Grip class="h-8 w-8 overflow-visible"/>
+      </div>
+      <div class="h-8 w-8 overflow-visible">
+        <Menu class="h-8 w-8 overflow-visible"/>
+      </div>
+      <div class="text-[0.8rem]">SHOWING 212 RESULTS</div>
+      <div class="text-[0.8rem]">SORT BY</div>
+    </div>
+    <div class="text-[0.8rem] flex items-center h-full">SEARCH</div>
+  </div>
+
+
+  
+  <!-- Main content row -->
+  <div class="flex justify-center bg-white ">
+    <div class="flex w-full max-w-6xl border border-white">
+    <!-- Grid Section -->
+    <div class="flex-grow bg-green-500 flex justify-center">
+        <div class="grid grid-cols-2 gap-4 p-4 max-w-4xl justify-items-center">      
+      <!-- Repeat 6 cards -->
+      {posts.map((post) => (
+        <Card
+          imageUrl={post.data.heroImage?.src || ''}
+          imageAlt={post.data.description}
+          title={post.data.title}
+        />
+      ))}
+    </div>
+    </div>
+    </div>
+  
+    <!-- Yellow sidebar -->
+    <div class="flex-shrink-0 w-64 bg-yellow-300 p-4 hidden md:flex flex-col">
+      <div class="text-black ">ALL CATEGORIES</div>
+  
+      <div class="border border-yellow-300 ">
+        <div class="text-black ">
+          - Design and Branding<br/>
+          - App Development<br/>
+          - Social Media<br/>
+          - Marketing Strategy<br/>
+          - Video Production
+        </div>
+      </div>
+  
+      <div class="text-black  mt-2">LATEST POSTS</div>
+      <div class="flex flex-col border border-yellow-300">
+        <!-- Repeat 3 latest posts -->
+        <div class="flex items-center ">
+          <div class="border border-black p-8 w-10 h-5"></div>
+          <div class="border border-yellow-300 p-2 m-0">
+            <div class="text-black p-1 m-0">title</div>
+          </div>
+        </div>
+        <div class="flex items-center ">
+          <div class="border border-black p-8 w-10 h-5"></div>
+          <div class="border border-yellow-300 p-2 m-0">
+            <div class="text-black p-1 m-0">title</div>
+          </div>
+        </div>
+        <div class="flex items-center ">
+          <div class="border border-black p-8 w-10 h-5"></div>
+          <div class="border border-yellow-300 p-2 m-0">
+            <div class="text-black p-1 m-0">title</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="text-black  mt-2">POPULAR TAGS</div>
+      <div class="flex flex-wrap border border-yellow-300 ">
+        <div class="bg-white text-black p-1 m-0">design</div>
+        <div class="bg-white text-black p-1 m-0">design</div>
+        <div class="bg-white text-black p-1 m-0">design</div>
+        <div class="bg-white text-black p-1 m-0">branding</div>
+      </div>
+    </div>
+  </div>
+  

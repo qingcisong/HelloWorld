@@ -1,0 +1,20 @@
+---
+interface Props {
+  imageUrl: string;
+  imageAlt: string;
+  title: string;
+}
+
+const { imageUrl, imageAlt, title } = Astro.props;
+---
+
+<div class="w-[15.5rem] bg-green-500">
+  <div class="p-2 border border-green-500">
+    <img
+      src={imageUrl}
+      alt={imageAlt}
+      class="w-full h-20 object-cover"
+    />
+    <div class="bg-red-500 text-black px-4">{title}</div>
+  </div>
+</div>

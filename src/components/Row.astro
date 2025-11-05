@@ -1,0 +1,21 @@
+---
+// Row component
+interface Props {
+  borderColor?: string;
+  backgroundColor?: string;
+  padding?: string;
+  margin?: string;
+  gap?: string;
+  width?: string;
+  height?: string;
+  maxWidth?: string;
+  justifyContent?: string;
+  flexGrow?: string;
+}
+
+const { borderColor = '#ccc', backgroundColor = 'transparent', padding = '1rem', margin = '0', gap = '1rem', width, height, maxWidth, justifyContent, flexGrow } = Astro.props;
+---
+
+<div style={`display: flex; flex-direction: row; gap: ${gap}; border: 1px solid ${borderColor}; background: ${backgroundColor}; padding: ${padding}; margin: ${margin}; ${width ? `width: ${width};` : ''} ${height ? `height: ${height};` : ''} ${maxWidth ? `max-width: ${maxWidth};` : ''} ${justifyContent ? `justify-content: ${justifyContent};` : ''} ${flexGrow ? `flex-grow: ${flexGrow};` : ''} border-radius: 0.5rem;`}>
+  <slot />
+</div>

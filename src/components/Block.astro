@@ -1,0 +1,21 @@
+---
+// Block component
+interface Props {
+  color?: string;
+  textColor?: string;
+  padding?: string;
+  margin?: string;
+  width?: string;
+  height?: string;
+  fontWeight?: string;
+  fontSize?: string;
+  textAlign?: string;
+  fontFamily?: string;
+}
+
+const { color = 'red', textColor = 'white', padding = '1rem', margin = '0', width, height, fontWeight, fontSize, textAlign, fontFamily } = Astro.props;
+---
+
+<div style={`background: ${color}; color: ${textColor}; padding: ${padding}; margin: ${margin}; ${width ? `width: ${width};` : ''} ${height ? `height: ${height};` : ''} ${fontWeight ? `font-weight: ${fontWeight};` : ''} ${fontSize ? `font-size: ${fontSize};` : ''} ${textAlign ? `text-align: ${textAlign};` : ''} ${fontFamily ? `font-family: ${fontFamily};` : ''} border-radius: 0.5rem;`}>
+  <slot />
+</div>
