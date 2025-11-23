@@ -3,9 +3,10 @@ interface Props {
   imageUrl: string;
   imageAlt: string;
   title: string;
+  dialogId: string;
 }
 
-const { imageUrl, imageAlt, title } = Astro.props;
+const { imageUrl, imageAlt, title, dialogId } = Astro.props;
 ---
 
 <div class="w-[15.5rem] bg-green-500">
@@ -16,5 +17,11 @@ const { imageUrl, imageAlt, title } = Astro.props;
       class="w-full h-20 object-cover"
     />
     <div class="bg-red-500 text-black px-4">{title}</div>
+    <button
+      class="btn btn-primary btn-sm w-full mt-2"
+      onclick={`document.getElementById('${dialogId}').showModal()`}
+    >
+      Read More
+    </button>
   </div>
 </div>

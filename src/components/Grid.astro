@@ -1,17 +1,7 @@
 ---
 // Grid component
-interface Props {
-  columns?: string;
-  gap?: string;
-  borderColor?: string;
-  backgroundColor?: string;
-  padding?: string;
-  margin?: string;
-}
-
-const { columns = 'repeat(3, 1fr)', gap = '1rem', borderColor = '#ccc', backgroundColor = 'transparent', padding = '1rem', margin = '0 0 2rem 0' } = Astro.props;
 ---
 
-<div style={`display: grid; grid-template-columns: ${columns}; gap: ${gap}; border: 1px solid ${borderColor}; background: ${backgroundColor}; padding: ${padding}; margin: ${margin}; border-radius: 0.5rem;`}>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border: 1px solid #ccc; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
   <slot />
 </div>

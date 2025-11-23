@@ -2,37 +2,45 @@
 import "../styles/global.css";
 import { Grip, Menu, Sticker } from '@lucide/astro';
 import Card from '../components/Card.astro';
+import PopUp from '../components/popUp.jsx';
+
 
 const cardData = [
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "hello"
+    title: "hello",
+    content: "this is the first essay lo",
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "title"
+    title: "title",
+    content: "this is the second essay lo",
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "title5"
+    title: "title",
+    content: "this is the third essay lo",
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "title"
+    title: "title",
+    content: "this is the fourth essay lo",
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "title5"
+    title: "title5",
+    content: "this is the first fifth lo",
   },
   {
     imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
     imageAlt: "tech image",
-    title: "title5"
+    title: "title5",
+    content: "this is the sixth essay lo",
   }
 ];
 ---
@@ -87,18 +95,12 @@ const cardData = [
   <div class="flex justify-center bg-white ">
     <div class="flex w-full max-w-6xl border border-white">
     <!-- Grid Section -->
+
     <div class="flex-grow bg-green-500 flex justify-center">
-        <div class="grid grid-cols-2 gap-4 p-4 max-w-4xl justify-items-center">      
-      <!-- Repeat 6 cards -->
-      {cardData.map((card) => (
-        <Card
-          imageUrl={card.imageUrl}
-          imageAlt={card.imageAlt}
-          title={card.title}
-        />
-      ))}
+      <PopUp client:load posts={cardData} />
     </div>
-    </div>
+
+
     </div>
   
     <!-- Yellow sidebar -->

@@ -3,28 +3,13 @@ import "../styles/global.css";
 import { Grip, Menu, Sticker } from '@lucide/astro';
 import { getCollection } from 'astro:content';
 import Card from '../components/Card.astro';
-import PopUp from '../components/popUp2.jsx';
 
-
-const postData = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.map(post => ({
-		imageUrl: typeof post.data.heroImage === 'string'
-			? post.data.heroImage
-			: post.data.heroImage?.src,
-		imageAlt: post.data.description,
-		title: post.data.title,
-		content: post.body,
-	}));
-
-const postDataJSON = JSON.stringify(postData);
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
-<script is:inline>
-  const postData = JSON.parse(document.getElementById('post-data').textContent);
-  console.log(postData);
-</script>
-<script is:inline id="post-data" type="application/json" set:html={postDataJSON}></script>
+
 
 <!-- Top red row -->
 <div class="flex bg-red-500 items-center py-1 px-4">
@@ -75,9 +60,47 @@ const postDataJSON = JSON.stringify(postData);
     <div class="flex w-full max-w-6xl border border-white">
     <!-- Grid Section -->
     <div class="flex-grow bg-green-500 flex justify-center">
-        <PopUp client:load posts={postData} />
+        <div class="grid grid-cols-2 gap-4 p-4 max-w-4xl justify-items-center">
+      <!-- Repeat 6 cards -->
+      {posts.map((post, index) => (
+        <>
+          <Card
+            imageUrl={post.data.heroImage?.src || ''}
+            imageAlt={post.data.description}
+            title={post.data.title}
+            dialogId={`post-dialog-${index}`}
+          />
+
+          {/* DaisyUI Dialog Modal */}
+          <dialog id={`post-dialog-${index}`} class="modal">
+            <div class="modal-box max-w-3xl">
+              <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              </form>
+              <h3 class="font-bold text-lg mb-4">{post.data.title}</h3>
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage.src}
+                  alt={post.data.description}
+                  class="w-full h-64 object-cover rounded-lg mb-4"
+                />
+              )}
+              <p class="text-sm text-gray-500 mb-2">
+                Published: {new Date(post.data.pubDate).toLocaleDateString()}
+              </p>
+              <div class="prose max-w-none">
+                <p>{post.data.description}</p>
+                {/* You can add more content here from post.body if needed */}
+              </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
+        </>
+      ))}
     </div>
-    
+    </div>
     </div>
   
     <!-- Yellow sidebar -->

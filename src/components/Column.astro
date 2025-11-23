@@ -1,19 +1,7 @@
 ---
 // Column component
-interface Props {
-  borderColor?: string;
-  backgroundColor?: string;
-  padding?: string;
-  margin?: string;
-  gap?: string;
-  flexGrow?: string;
-  alignItems?: string;
-  justifyContent?: string;
-}
-
-const { borderColor = '#ccc', backgroundColor = 'transparent', padding = '1rem', margin = '0 0 2rem 0', gap = '1rem', flexGrow, alignItems, justifyContent } = Astro.props;
 ---
 
-<div style={`display: flex; flex-direction: column; gap: ${gap}; border: 1px solid ${borderColor}; background: ${backgroundColor}; padding: ${padding}; margin: ${margin}; ${flexGrow ? `flex-grow: ${flexGrow};` : ''} ${alignItems ? `align-items: ${alignItems};` : ''} ${justifyContent ? `justify-content: ${justifyContent};` : ''} border-radius: 0.5rem;`}>
+<div style="display: flex; flex-direction: column; gap: 1rem; border: 1px solid #ccc; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
   <slot />
 </div>
