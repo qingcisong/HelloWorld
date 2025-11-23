@@ -4,6 +4,7 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
  @import "tailwindcss";
+ @import "daisyui";
 
 @layer base {
   :root {
