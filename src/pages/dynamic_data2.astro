@@ -72,7 +72,7 @@ const posts = (await getCollection('blog')).sort(
           />
 
           {/* DaisyUI Dialog Modal */}
-          <dialog id={`post-dialog-${index}`} class="modal">
+          <dialog id={`post-dialog-${index}`} class="modal modal-middle">
             <div class="modal-box max-w-3xl">
               <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -89,8 +89,7 @@ const posts = (await getCollection('blog')).sort(
                 Published: {new Date(post.data.pubDate).toLocaleDateString()}
               </p>
               <div class="prose max-w-none">
-                <p>{post.data.description}</p>
-                {/* You can add more content here from post.body if needed */}
+                <div set:html={post.body} />
               </div>
             </div>
             <form method="dialog" class="modal-backdrop">
