@@ -1,0 +1,174 @@
+---
+import "../../styles/global.css";
+import { getCollection } from 'astro:content';
+import Card from "../../components/Card.astro";
+
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<div class="min-h-screen">
+  <!-- 第一层 -->
+   
+  <div class="navbar bg-base-100 shadow-sm">
+    <div class="flex-1">
+        <a class="btn btn-ghost">IDEA LAB</a>
+    </div>
+    
+    <div class="flex-none">
+        <a class="btn btn-ghost">About</a>
+        <a class="btn btn-ghost">Services</a>
+        <a class="btn btn-ghost">Profolio</a>
+        <a class="btn btn-ghost">Blog</a>
+    </div>
+  </div>
+
+  <!-- 第二层 -->
+
+  <div class="breadcrumbs text-sm flex justify-center">
+    <ul>
+      <li><a>Home</a></li>
+      <li><a>Blog</a></li>
+    </ul>
+  </div>
+
+  <div class="py-4 text-center">
+    <h1 class="text-base">Ideas that inspire</h1>
+  </div>
+  
+  <!-- 第三层 -->
+  <div class="navbar bg-base-100 shadow-sm">
+    <div class="flex-none">
+        <button class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip-icon lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        </button>
+    </div>
+    <div class="flex-items-center gap-6">
+      <a class="text-xl">showing 212 results</a>
+      <a class="text-xl">sort by</a>
+    </div>
+    
+    <div class="flex ml-auto">
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+    </div>
+  </div>
+
+  <!-- 主体-->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
+    <div class="col-span-3 card ">
+        <!-- 绿色-->
+        <div class="grid grid-cols-2 place-items-center gap-6">
+            {posts.map((post, index) => (
+                <div>
+                  <!-- 卡片 -->
+                  <Card
+                    imageUrl={post.data.heroImage?.src ?? ""}
+                    imageAlt={post.data.description}
+                    title={post.data.title}
+                    dialogId={`post-dialog-${index}`} 
+                  />
+              
+                  <!-- modal -->
+                  <dialog id={`post-dialog-${index}`} class="modal">
+                    <div class="modal-box max-w-3xl max-h-[80vh] overflow-y-auto">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+              
+                      <h3 class="text-2xl font-bold mb-4">{post.data.title}</h3>
+              
+                      {post.data.heroImage && (
+                        <img
+                          src={post.data.heroImage.src}
+                          alt={post.data.description}
+                          class="w-full h-64 object-cover rounded-lg mb-4"
+                        />
+                      )}
+              
+                      <div class="prose max-w-none">
+                        <div set:html={post.body} />
+                      </div>
+                    </div>
+              
+                    <form method="dialog" class="modal-backdrop">
+                      <button>close</button>
+                    </form>
+                  </dialog>
+                </div>
+            ))}
+              
+        </div>
+    </div>
+
+    <!-- 黄色-->
+    <div class="col-span-1 bg-base-200 rounded-xl p-4 flex flex-col gap-4">
+        <!-- 1-->
+        <div class="card bg-base-100 w-full shadow-sm p-4 space-y-3">
+            <h2 class="card-title text-sm font-bold">All Categories</h2>
+            <ul class="space-y-2 text-sm">
+              <li>Design and Branding</li>
+              <li>App Development</li>
+              <li>Social Media</li>
+              <li>Marketing Strategy</li>
+              <li>Video Production</li>
+            </ul>
+        </div>
+        
+        <!-- 2-->
+        <div class="card bg-base-100 shadow-sm p-4">
+            <ul class="list bg-base-100 rounded-box shadow-md">
+  
+                <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Latest Posts</li>
+                
+                <li class="list-row">
+                  <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp"/></div>
+                  <div>
+                    <div>shen zhengyi</div>
+                  </div>
+                </li>
+                
+                <li class="list-row">
+                  <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/4@94.webp"/></div>
+                  <div>
+                    <div>song qingci</div>
+                  </div>
+                </li>
+                
+                <li class="list-row">
+                  <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/3@94.webp"/></div>
+                  <div>
+                    <div>song qingmo</div>
+                  </div>
+                </li>
+                
+              </ul>
+        </div>
+        <!-- 3-->
+        <div class="card bg-base-100 shadow-sm p-4">
+            <h2 class="card-title text-sm mb-2">Popular Tags</h2>
+            <div class="flex flex-wrap gap-2">
+              <span class="badge badge-lg badge-outline rounded-full">design</span>
+              <span class="badge badge-lg badge-outline rounded-full">design</span>
+              <span class="badge badge-lg badge-outline rounded-full">design</span>
+              <span class="badge badge-lg badge-outline rounded-full">branding</span>
+              <span class="badge badge-lg badge-outline rounded-full">marketing</span>
+            </div>
+        </div>
+          
+          
+
+
+
+
+    </div>
+
+
+    
+  </div>
+  
+
+
+</div>
